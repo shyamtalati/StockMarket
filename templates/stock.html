@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Stock Data for {{ symbol }}</title>
+</head>
+<body>
+    <h1>Stock Data for {{ symbol }}</h1>
+    <div>
+        {% if stock_data["Meta Data"] %}
+            <h2>Meta Data</h2>
+            <p>Information: {{ stock_data["Meta Data"]["1. Information"] }}</p>
+            <p>Symbol: {{ stock_data["Meta Data"] ["2. Symbol"] }}</p>
+            <p>Last Refreshed: {{ stock_data["Meta Data"]["3. Last Refreshed"] }}</p>
+        {% endif %}
+        {% if stock_data["Time Series (5min)"] %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Open</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Close</th>
+                    <th>Volume</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for time, details in stock_data["Time Series (5min)"].items() %}
+                    <tr>
+                        <td>{{ time }}</td>
+                        <td>{{ details["1. open"] }}</td>
+                        <td>{{ details["2. high"] }}</td>
+                        <td>{{ details["3. low"] }}</td>
+                        <td>{{ details["4. close"] }}</td>
+                        <td>{{ details["5. volume"] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>        
+        {% endif %}    
+    </div>
+    <a href="'">Back to Home</a>
+</body>
+</html>
