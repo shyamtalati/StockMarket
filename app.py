@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, jsonify
 import requests
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 
-alphaVantageApiKey = "429VFIKMPXLL67PU"
+load_dotenv()
+alphaVantageApiKey = os.getenv("ALPHA_VENTAGE_API_KEY")
 baseUrl = "https://www.alphavantage.co/query"
 
 @app.route("/")
